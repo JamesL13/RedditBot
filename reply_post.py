@@ -8,7 +8,7 @@ if not os.path.isfile("config_bot.py"):
     print("Can not find config file")
     exit(1)
 
-user_agent = ("Fatkid Bot 0.1")
+user_agent = ("HFYBookBot.01")
 
 r = praw.Reddit(user_agent = user_agent)
 
