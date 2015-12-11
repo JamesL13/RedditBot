@@ -2,6 +2,7 @@ import praw
 import pdb
 import re
 import os
+import json
 from config_bot import *
 
 if not os.path.isfile("config_bot.py"):
@@ -16,29 +17,25 @@ r.login(REDDIT_USERNAME, REDDIT_PASS)
 
 subreddit = r.get_subreddit("HFY");
 
-for submission in subreddit.get_top_from_month(limit=5):
-    print ("Title: ", submission.title)
-#    print ("Text: ", submission.selftext)
-    print ("Score: ", submission.score)
-    print ("---------------------------------\n")
+listoflists = []
+story_list = []
 
+for submission in subreddit.get_top_from_month(limit=2):
+    title = str(submission.title);
+    story = str(submission.selftext);
+    author = str(submission.author);
+#    score = ("Score: ", submission.score)
+    spacer = ("---------------------------------\n");
+    if not os.path.isfile("test.txt"):
+        Stories = []
+        print ("No file homi")
+    else:
+        with open("test.txt", "w") as f:
+            JsonStory = [title, author, story]
+            story_list.append(JsonStory)
+#            listoflists.append(story_list)
+            # f.write(submission.title + "\n" + author + "\n\n\n" + submission.selftext + spacer + spacer)
+            print ("Writing: ", submission.title)
 
-#if not os.path.isfile("posts_replied_to.txt"):
-#    posts_replied_to = []
-#else:
-#    with open("posts_replied_to.txt", "r") as f:
-#        posts_replied_to = f.read()
-#        posts_replied_to = posts_replied_to.split("\n")
-#        posts_replied_to = filter(None, posts_replied_to)
-
-#subreddit = r.get_subreddit('pythonforengineers')
-#for submission in subreddit.get_hot(limit=5):
-#    if submission.id not in posts_replied_to:
-#        if re.search("Please Read This First before posting anything here", submission.title, re.IGNORECASE):
-#            submission.add_comment("Yo ma man! Python is da best")
-#            print("Bot replying to : ", submission.title)
-#            posts_replied_to.append(submission.id)
-#with open("posts_replied_to.txt", "w") as f:
-#                for post_id in posts_replied_to:
-#                    f.write(post_id + "\n")
-
+with open("test.txt", "w") as f:
+            json.dump(story_list, f)
