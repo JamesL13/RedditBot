@@ -16,17 +16,21 @@ r.login(REDDIT_USERNAME, REDDIT_PASS)
 
 subreddit = r.get_subreddit("HFY");
 
-for submission in subreddit.get_top_from_month(limit=5):
-    print ("Title: ", submission.title)
-#    print ("Text: ", submission.selftext)
-    print ("Score: ", submission.score)
-    print ("---------------------------------\n")
+for submission in subreddit.get_top_from_month(limit=1):
+    title = ("Title: ", submission.title);
+    story = ("Text: ", submission.selftext);
+    author = str(submission.author)
+#    score = ("Score: ", submission.score)
+    spacer = ("---------------------------------\n");
+    if not os.path.isfile("test.txt"):
+        Stories = []
+        print ("No file homi")
+    else:
+        with open("test.txt", "w") as f:
+            f.write(submission.title + "\n" + author + "\n\n\n" + submission.selftext + spacer + spacer)
+            print ("Writing: ", submission.title)
+#Call script that puts each post into a txt file
 
-
-#if not os.path.isfile("posts_replied_to.txt"):
-#    posts_replied_to = []
-#else:
-#    with open("posts_replied_to.txt", "r") as f:
 #        posts_replied_to = f.read()
 #        posts_replied_to = posts_replied_to.split("\n")
 #        posts_replied_to = filter(None, posts_replied_to)
