@@ -2,6 +2,7 @@ import praw
 import pdb
 import re
 import os
+import json
 from config_bot import *
 
 if not os.path.isfile("config_bot.py"):
@@ -30,14 +31,15 @@ for submission in subreddit.get_top_from_month(limit=2):
         print ("No file homi")
     else:
         with open("test.txt", "w") as f:
-            story_list.append(title)
-            story_list.append(author)
-            story_list.append(story)
-            listoflists.append(story_list)
+            JsonStory = [title, author, story]
+            story_list.append(JsonStory)
+#            listoflists.append(story_list)
             # f.write(submission.title + "\n" + author + "\n\n\n" + submission.selftext + spacer + spacer)
             print ("Writing: ", submission.title)
-#f.write(listoflists)
-print (listoflists)
+
+with open("test.txt", "w") as f:
+            json.dump(story_list, f)
+#print (listoflists)
 
 #Call script that puts each post into a txt file
 
