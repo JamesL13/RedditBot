@@ -20,22 +20,20 @@ subreddit = r.get_subreddit("HFY");
 listoflists = []
 story_list = []
 
-for submission in subreddit.get_top_from_month(limit=2):
+for submission in subreddit.get_top_from_month(limit=5
+                                               ):
     title = str(submission.title);
     story = str(submission.selftext);
     author = str(submission.author);
 #    score = ("Score: ", submission.score)
-    spacer = ("---------------------------------\n");
-    if not os.path.isfile("test.txt"):
+    spacer = ("---------------------------------\n")
+    if not os.path.isfile("stories.txt"):
         Stories = []
         print ("No file homi")
     else:
-        with open("test.txt", "w") as f:
-            JsonStory = [title, author, story]
-            story_list.append(JsonStory)
-#            listoflists.append(story_list)
-            # f.write(submission.title + "\n" + author + "\n\n\n" + submission.selftext + spacer + spacer)
+        with open("stories.txt", "a") as f:
+            f.write(title + "\n")
+            f.write(author + "\n")
+            f.write(story + "\n\n")
             print ("Writing: ", submission.title)
 
-with open("test.txt", "w") as f:
-            json.dump(story_list, f)
